@@ -1,0 +1,90 @@
+{
+    "project": {
+        "name": "LivingWorldRPG",
+        "variables": {
+            "Global": {
+                "WorldDay": 1,
+                "Gold": 0,
+                "PlayerFaction": "None",
+                "PlayerJob": "None"
+            }
+        },
+        "scenes": [
+            {
+                "name": "TownStart",
+                "objects": [
+                    {
+                        "name": "Player",
+                        "type": "Sprite",
+                        "variables": {
+                            "Strength": 10,
+                            "Dexterity": 10,
+                            "Constitution": 10,
+                            "Intelligence": 10,
+                            "Wisdom": 10,
+                            "Charisma": 10,
+                            "XP": 0,
+                            "Level": 1,
+                            "Gold": 0,
+                            "Skill_Athletics": 0,
+                            "Skill_Survival": 0,
+                            "Skill_Smithing": 0,
+                            "Skill_Hunting": 0,
+                            "Affection": 0,
+                            "LoveInterest": ""
+                        }
+                    },
+                    {
+                        "name": "NPC_Blacksmith",
+                        "type": "Sprite",
+                        "variables": {
+                            "Name": "Lora Ironhand",
+                            "Job": "Blacksmith",
+                            "Affection": 0,
+                            "Level": 1,
+                            "XP": 0
+                        }
+                    },
+                    {
+                        "name": "JobBoard",
+                        "type": "Sprite",
+                        "variables": {}
+                    }
+                ],
+                "events": [
+                    {
+                        "trigger": "Player interacts with JobBoard",
+                        "actions": [
+                            "Show choices: Blacksmith, Hunter, Farmer, Adventurer",
+                            "Set GlobalVariable(PlayerJob) to chosen job"
+                        ]
+                    },
+                    {
+                        "trigger": "Player performs job activity",
+                        "actions": [
+                            "Add 10 to GlobalVariable(Gold)",
+                            "Add 1 to Player.Skill_Smithing",
+                            "Display 'You earned 10 gold and improved your Smithing!'"
+                        ]
+                    },
+                    {
+                        "trigger": "Dice Roll (e.g., player presses R key)",
+                        "actions": [
+                            "Set Variable Roll = RandomInRange(1,20)",
+                            "Set Variable Total = Roll + Player.Strength",
+                            "If Total >= 15 \u2192 Display 'Success!'",
+                            "Else \u2192 Display 'Failure.'"
+                        ]
+                    },
+                    {
+                        "trigger": "Every 10 seconds",
+                        "actions": [
+                            "Add 1 to NPC_Blacksmith.XP",
+                            "If NPC_Blacksmith.XP >= 100 \u2192 NPC_Blacksmith.Level + 1, XP = 0"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
